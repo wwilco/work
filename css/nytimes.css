@@ -1,0 +1,26 @@
+#imgNYTimes {
+  float: left;
+}
+p {
+  font-size: 10px;
+}
+h2, #headline{
+  font-size: 16px;
+}
+#abstract{
+  font-size: 12px;
+}
+#div1 {
+  width: 310px;
+  height: 455px;
+  overflow: scroll;
+  float: right;
+  margin-top: -640px;
+  margin-right: 50px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: black;
+  border-radius: 3px;
+  padding-top: 4px;
+  background-color: rgba(211,211,211,.99);
+}

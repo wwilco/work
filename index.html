@@ -1,0 +1,131 @@
+<html>
+<title>bujutwo2too</title>
+<head>
+  <link rel="stylesheet" href="css/bujustyle.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/nytimes.css">
+  <link rel="stylesheet" href="css/weather.css">
+
+</head>
+  <body>
+
+    <iframe src="https://embed.spotify.com/?uri=spotify:user:1250679339:playlist:0pbHnaOr3cRY1napC9hrt7" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+    <div class="sports">
+      <img src="pics/nyrangers.png" id="nyr" class ="sportpic" height="50"/>
+      <img src="pics/nymets.png" id="nymets" class ="sportpic" height="50"/>
+      <img src="pics/nygiants.png" id="nygiants" class ="sportpic" height="50"/>
+      <img src="pics/nyknicks2.png" id="nyknicks" class ="sportpic" height="50"/>
+      <img src="pics/yahoo.png" id="yahoo" class ="sportpic" height="50"/>
+    </div>
+    <div class="others">
+      <img src="pics/skype.png" id="skype" class ="otherpic" height="50"/>
+      <img src="pics/slack.png" id="slack" class ="otherpic" height="52"/>
+      <img src="pics/linkedin.png" id="linkedin" class ="otherpic" width="50"/>
+      <img src="pics/venmo.png" id="venmo" class ="otherpic" height="50"/>
+    </div>
+    <div id="lock">
+      <img src="pics/lock.png" id="lockpic" height="50"/>
+    </div>
+    <div id="tweet">
+      <img src="pics/twitter.png" id="twitterpic" height="400"/>
+    </div>
+    <div id="facebook">
+      <img src="pics/fbhead.png" id="fbpic" height="45"/>
+    </div>
+    <div id="nytimes">
+      <img src="pics/nytimes.png" id="nytimespic" height="500"/>
+    </div>
+
+    <script charset="utf-8">
+      var body = document.querySelector("body");
+      var div1 = document.createElement("div");
+      div1.setAttribute("id", "div1");
+      body.appendChild(div1);
+      var url = "/news";
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.addEventListener('load', function(e) {
+        var data = xhr.responseText;
+        var parsed = JSON.parse(data);
+        for(var i = 0; i < 19; i++){
+          //individual divs
+          var lilDiv = document.createElement("div");
+          lilDiv.setAttribute("class", "lilDiv");
+          div1.appendChild(lilDiv);
+          //a href
+          var link = document.createElement("a");
+          link.setAttribute("href", parsed["results"][i]["url"]);
+          link.setAttribute("target", "_blank");
+          div1.appendChild(link);
+          //image
+          var imgNYTimes = document.createElement("img");
+          imgNYTimes.setAttribute("id", "imgNYTimes");
+          // imgNYTimes.setAttribute("src", parsed["results"][i]["multimedia"][0]["url"]);
+          imgNYTimes.setAttribute("src", parsed["results"][i]["media"][0]["media-metadata"][0]["url"]);
+          link.appendChild(imgNYTimes);
+          //byline
+          var byline = document.createElement("p");
+          byline.innerHTML = parsed["results"][i]["byline"];
+          div1.appendChild(byline);
+          //date
+          var date = document.createElement("p");
+          date.innerHTML = parsed["results"][i]["published_date"];
+          div1.appendChild(date);
+          //headline
+          var headline = document.createElement("h2");
+          headline.setAttribute("id", "headline");
+          headline.innerHTML = parsed["results"][i]["title"];
+          div1.appendChild(headline);
+          console.log(headline.innerHTML)
+          //abstract
+          var abstract = document.createElement("p");
+          abstract.setAttribute("id", "abstract");
+          abstract.innerHTML = parsed["results"][i]["abstract"];
+          div1.appendChild(abstract);
+          //line break
+          var lineBreak = document.createElement("br");
+          div1.appendChild(lineBreak);
+
+        };
+
+      });
+      xhr.send();
+
+      //weather
+
+      var body = document.querySelector("body");
+      var weatherSection = document.createElement("section");
+      weatherSection.setAttribute("id", "weatherSection");
+      body.appendChild(weatherSection);
+      var weatherDiv = document.createElement("div");
+      weatherDiv.setAttribute("id", "weatherDiv");
+      weatherSection.appendChild(weatherDiv);
+      var url2 = "/news";
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url2);
+      xhr.addEventListener('load', function(e) {
+        var data = xhr.responseText;
+        var parsed = JSON.parse(data);
+        //weather slogan
+        var weatherSlogan = document.createElement("h2");
+        weatherSlogan.setAttribute("id", "weatherSlogan");
+        weatherSlogan.innerHTML = parsed["currently"]["summary"];
+        weatherDiv.appendChild(weatherSlogan);
+        //temperature
+        var temp = document.createElement("h2");
+        temp.setAttribute("id", "temp");
+        console.log(parsed["currently"]["temperature"]);
+        temp.innerHTML = parseInt(parsed["currently"]["temperature"]) + ("°");
+        weatherDiv.appendChild(temp);
+        //image
+        var weatherImg = document.createElement("img");
+        weatherImg.setAttribute("id", "weatherImg")
+        console.log(weatherImg)
+        weatherImg.setAttribute("src", ("pics/") + parsed["currently"]["icon"] + (".png"));
+        weatherDiv.appendChild(weatherImg);
+      });
+      xhr.send();
+
+    </script>
+  </body>
+</html>

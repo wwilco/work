@@ -1,0 +1,64 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../../../css/weather.css">
+
+</head>
+
+
+  <body>
+
+
+
+  <script charset="utf-8">
+    var body = document.querySelector("body");
+    var weatherSection = document.createElement("section");
+    weatherSection.setAttribute("id", "weatherSection");
+    body.appendChild(weatherSection);
+    var weatherDiv = document.createElement("div");
+    weatherDiv.setAttribute("id", "weatherDiv");
+    weatherSection.appendChild(weatherDiv);
+    var url = "/weather";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.addEventListener('load', function(e) {
+      var data = xhr.responseText;
+      var parsed = JSON.parse(data);
+      //weather slogan
+      var weatherSlogan = document.createElement("h2");
+      weatherSlogan.setAttribute("id", "weatherSlogan");
+      weatherSlogan.innerHTML = parsed["currently"]["summary"];
+      weatherDiv.appendChild(weatherSlogan);
+      //temperature
+      var temp = document.createElement("h2");
+      temp.setAttribute("id", "temp");
+      console.log(parsed["currently"]["temperature"]);
+      temp.innerHTML = parseInt(parsed["currently"]["temperature"]) + ("°");
+      weatherDiv.appendChild(temp);
+      //image
+      var weatherImg = document.createElement("img");
+      weatherImg.setAttribute("id", "weatherImg")
+      console.log(weatherImg)
+      weatherImg.setAttribute("src", ("pics/") + parsed["currently"]["icon"] + (".png"));
+      weatherDiv.appendChild(weatherImg);
+    });
+    xhr.send();
+      // var url = "https://api.forecast.io/forecast/264b9e60bfe658dcdd4582fa7342668d/41,-74";
+      // console.log(url);
+      //
+      // var xhr = new XMLHttpRequest();
+      // xhr.open("GET", url);
+      //
+      // xhr.addEventListener('load', function(){
+      //   var data = xhr.responseText;
+      //   var parsed = JSON.parse(data);
+      //   var h1 = document.querySelector("h1");
+      //   h1.innerHTML = parsed["minutely"]["summary"];
+      //   body.appendChild(h1);
+      //   // var weather = document.getElementById("weather");
+      //   // weather.setAttribute()
+      // });
+      // xhr.send();
+
+    </script>
+  </body>
+</html>
